@@ -46,16 +46,16 @@ pipeline {
                     powershell -Command "(Get-Content deployments/frontend-deployment.yaml) -replace 'imageVersion', ${BUILD_NUMBER} | Out-File -encoding ASCII deployments/frontend-deployment.yaml"
                     
                     git clone https://github.com/hadam1011/manifests.git
-                    cp deployments/backend-deployment.yaml manifests/backend-deployment.yaml
-                    cp deployments/frontend-deployment.yaml manifests/frontend-deployment.yaml
+                    copy deployments/backend-deployment.yaml manifests/backend-deployment.yaml
+                    copy deployments/frontend-deployment.yaml manifests/frontend-deployment.yaml
 
                     cd manifests
-                    git add manifests/backend-deployment.yaml manifests/frontend-deployment.yaml
+                    git add backend-deployment.yaml frontend-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests
 
                     cd ..
-                    rm -rf manifests
+                    rmdir /s /q manifests
                 """
             }
         }
