@@ -42,11 +42,20 @@ pipeline {
                 bat """
                     git config user.email "hadam8910@gmail.com"
                     git config user.name "hadam1011"
-                    powershell -Command "(Get-Content manifests/backend-deployment.yaml) -replace 'imageVersion', ${BUILD_NUMBER} | Out-File -encoding ASCII manifests/backend-deployment.yaml"
-                    powershell -Command "(Get-Content manifests/frontend-deployment.yaml) -replace 'imageVersion', ${BUILD_NUMBER} | Out-File -encoding ASCII manifests/frontend-deployment.yaml"
+                    powershell -Command "(Get-Content deployments/backend-deployment.yaml) -replace 'imageVersion', ${BUILD_NUMBER} | Out-File -encoding ASCII deployments/backend-deployment.yaml"
+                    powershell -Command "(Get-Content deployments/frontend-deployment.yaml) -replace 'imageVersion', ${BUILD_NUMBER} | Out-File -encoding ASCII deployments/frontend-deployment.yaml"
+                    
+                    git clone https://github.com/hadam1011/manifests.git
+                    cp deployments/backend-deployment.yaml manifests/backend-deployment.yaml
+                    cp deployments/frontend-deployment.yaml manifests/frontend-deployment.yaml
+
+                    cd manifests
                     git add manifests/backend-deployment.yaml manifests/frontend-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests HEAD:main
+                    git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests
+
+                    cd ..
+                    rm -rf manifests
                 """
             }
         }
