@@ -52,12 +52,12 @@ pipeline {
                     cd manifests\\query-exporter-app
                     git config user.email "hadam8910@gmail.com"
                     git config user.name "hadam1011"
-                    git add .
+                    git add backend-deployment.yaml frontend-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests
 
                     cd ..
-                    rmdir /s /q manifests
+                    rmdir /s /q ./manifests
                 """
             }
         }
