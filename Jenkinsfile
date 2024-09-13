@@ -50,6 +50,8 @@ pipeline {
                     copy deployments/frontend-deployment.yaml manifests/frontend-deployment.yaml
 
                     cd manifests
+                    git config user.email "hadam8910@gmail.com"
+                    git config user.name "hadam1011"
                     git add backend-deployment.yaml frontend-deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests
