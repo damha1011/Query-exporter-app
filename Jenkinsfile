@@ -48,6 +48,7 @@ pipeline {
                     git clone https://github.com/hadam1011/manifests.git
                     copy deployments\\backend-deployment.yaml manifests\\backend-deployment.yaml
                     copy deployments\\frontend-deployment.yaml manifests\\frontend-deployment.yaml
+                    cat manifests\\frontend-deployment.yaml
 
                     cd manifests\\query-exporter-app
                     git config user.email "hadam8910@gmail.com"
@@ -57,7 +58,7 @@ pipeline {
                     git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests
 
                     cd ..
-                    rmdir /s /q ./manifests
+                    rmdir manifests
                 """
             }
         }
