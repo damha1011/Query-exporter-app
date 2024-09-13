@@ -49,7 +49,7 @@ pipeline {
                     copy deployments/backend-deployment.yaml manifests/backend-deployment.yaml
                     copy deployments/frontend-deployment.yaml manifests/frontend-deployment.yaml
 
-                    cd manifests
+                    cd manifests/query-exporter-app
                     git config user.email "hadam8910@gmail.com"
                     git config user.name "hadam1011"
                     git add backend-deployment.yaml frontend-deployment.yaml
