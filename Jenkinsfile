@@ -48,12 +48,11 @@ pipeline {
                     git clone https://github.com/hadam1011/manifests.git
                     copy deployments\\backend-deployment.yaml manifests\\backend-deployment.yaml
                     copy deployments\\frontend-deployment.yaml manifests\\frontend-deployment.yaml
-                    type manifests\\frontend-deployment.yaml
 
                     cd manifests
                     git config user.email "hadam8910@gmail.com"
                     git config user.name "hadam1011"
-                    git add query-exporter-app\\backend-deployment.yaml query-exporter-app\\frontend-deployment.yaml
+                    git add .
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/hadam1011/manifests
                 """
