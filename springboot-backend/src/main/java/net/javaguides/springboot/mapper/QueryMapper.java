@@ -1,6 +1,7 @@
 package net.javaguides.springboot.mapper;
 
 import net.javaguides.springboot.dto.QueryYaml;
+import net.javaguides.springboot.model.Database;
 import net.javaguides.springboot.model.Queries;
 import net.javaguides.springboot.model.UserEntity;
 import net.javaguides.springboot.repository.QueryRepository;
@@ -23,6 +24,14 @@ public class QueryMapper {
         queryYaml.setDatabaseNames(query.getDatabases().split(","));
         queryYaml.setSql(query.getSql());
         return queryYaml;
+    }
+
+    private boolean checkQueryExist (List<Queries> listData, String name) {
+        for (Queries query : listData) {
+            if (query.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
     public Map<String, QueryYaml> toYamlMap(List<Queries> queries) {
@@ -69,9 +78,10 @@ public class QueryMapper {
             Map<String,Object> value = listQueryMap.get(key);
             System.out.println("Key: " + key + ", Value: " + value);
 
-            if (!queryRepo.findByUsernameFromJoinedTables(user.getUsername()).isEmpty()) {
-                return null;
-            }
+            // Check query exist
+            List<Queries> userQueries = queryRepo.findByUsernameFromJoinedTables(user.getUsername());
+            if (checkQueryExist(userQueries, key)) return null;
+
             query.setName(key);
 
             if(value.containsKey("interval")){

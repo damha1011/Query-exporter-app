@@ -7,6 +7,7 @@ import net.javaguides.springboot.model.UserEntity;
 import net.javaguides.springboot.repository.DatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.xml.crypto.Data;
 import java.util.*;
 
 public class DatabaseMapper {
@@ -15,6 +16,14 @@ public class DatabaseMapper {
 
     public DatabaseMapper (DatabaseRepository databaseRepo) {
         this.databaseRepo = databaseRepo;
+    }
+
+    private boolean checkDatabaseExist (List<Database> listData, String name) {
+        for (Database database : listData) {
+            if (database.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
     public Map<String,Map<String,Object>>toYamlMapAdd(List<Database> databases){
@@ -54,9 +63,11 @@ public class DatabaseMapper {
                 Database db = new Database();
                 Map<String,Object> value = listDBMap.get(key);
                 System.out.println("Key: " + key + ", Value: " + value);
-                if (!databaseRepo.findByUsernameFromJoinedTables(user.getUsername()).isEmpty()) {
-                    return null;
-                }
+
+                // Check database exist
+                List<Database> userDb = databaseRepo.findByUsernameFromJoinedTables(user.getUsername());
+                if (checkDatabaseExist(userDb, key)) return null;
+
                 db.setName(key);
                 if(value.containsKey("dsn")){
                     if (value.get("dsn") instanceof LinkedHashMap) {
@@ -87,7 +98,6 @@ public class DatabaseMapper {
                         int start = dsn.indexOf("@") + 1;
                         int end = dsn.lastIndexOf(":");
                         db.setHostName(dsn.substring(start, end));
-//                        db.setLabel("hostname: " + dsn.substring(start, end));
                         db.setDsn(PassTranformer.encrypt(dsn));
                     }
                 }

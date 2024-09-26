@@ -1,10 +1,10 @@
-import React, { useState }  from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, Typography, notification } from 'antd';
 import * as AuthService from '../../services/AuthService';
-import ImageBackground from '../../images/login-background.jpg'
+import ImageBackground from '../../images/login-background.jpg';
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -44,6 +44,7 @@ const LoginPage = () => {
           height: '100%',
       }}>
           <img
+            alt='background'
             src={ImageBackground}
             style={{width:'100%', height: '100%'}}
           />

@@ -2,10 +2,9 @@ package net.javaguides.springboot.mapper;
 
 import net.javaguides.springboot.dto.MetricYaml;
 import net.javaguides.springboot.dto.MetricYaml;
+import net.javaguides.springboot.model.*;
 import net.javaguides.springboot.model.Metric;
 import net.javaguides.springboot.model.Metric;
-import net.javaguides.springboot.model.Metric;
-import net.javaguides.springboot.model.UserEntity;
 import net.javaguides.springboot.repository.MetricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +25,15 @@ public class MetricMapper {
         metricYaml.setLabel(metric.getLabels().split(","));
         return metricYaml;
     }
+
+    private boolean checkMetricExist (List<Metric> listData, String name) {
+        for (Metric metric : listData) {
+            if (metric.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
     public Map<String,MetricYaml> toYamlMap(List<Metric> metrics){
         Map<String,MetricYaml> metricMap = new HashMap<String,MetricYaml>();
         for(int i =0 ; i < metrics.size() ; i++ ){
@@ -76,9 +84,10 @@ public class MetricMapper {
             Map<String,Object> value = listMetricMap.get(key);
             System.out.println("Key: " + key + ", Value: " + value);
 
-            if (!metricRepo.findByUsernameFromJoinedTables(user.getUsername()).isEmpty()) {
-                return null;
-            }
+            // Check metric exist
+            List<Metric> userMetrics = metricRepo.findByUsernameFromJoinedTables(user.getUsername());
+            if (checkMetricExist(userMetrics, key)) return null;
+
             metric.setName(key);
 
             if(value.containsKey("type")){

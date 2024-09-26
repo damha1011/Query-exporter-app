@@ -3,6 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography, Divider, notification } from 'antd';
 import { register } from '../../services/AuthService';
 import { useHistory } from 'react-router-dom';
+import ImageBackground from '../../images/login-background.jpg';
 
 const RegisterPage = () => {
     const [api, contextHolder] = notification.useNotification();
@@ -38,8 +39,9 @@ const RegisterPage = () => {
                 boxSizing: 'border-box',
                 height: '100%',
             }}>
-                <img
-                    src='https://last9.ghost.io/content/images/2022/12/Prometheus-exporters-copy--1-.jpg'
+                <img    
+                    alt='background'
+                    src={ImageBackground}
                     style={{width:'100%', height: '100%'}}
                 />
             </div>

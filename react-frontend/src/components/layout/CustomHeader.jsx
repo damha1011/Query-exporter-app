@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown, Flex, Layout, Modal } from "antd";
+import { Avatar, Button, Dropdown, Flex, Layout, Space, Typography } from "antd";
 import React, { useState } from "react";
 import {
     MenuFoldOutlined,
@@ -49,15 +49,18 @@ const CustomHeader = (props) => {
                         height: 64, 
                     }}
                 />
-                <Dropdown
-                    menu={{
-                        items: dropDownItems,
-                        selectable: true,
-                        onClick: handleClickDropdownItem,
-                    }}
-                >
-                    <Avatar size="large" icon={<UserOutlined />}/>
-                </Dropdown>
+                <Space>
+                    <Typography.Text>{user?.username}</Typography.Text>
+                    <Dropdown
+                        menu={{
+                            items: dropDownItems,
+                            selectable: true,
+                            onClick: handleClickDropdownItem,
+                        }}
+                    >
+                        <Avatar size="large" icon={<UserOutlined />}/>
+                    </Dropdown>
+                </Space>
             </Flex>
         </Header>
     )

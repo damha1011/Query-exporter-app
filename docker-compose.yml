@@ -1,7 +1,6 @@
 version: "3.8"
 services:
   mysqlserver:
-    image: mysql:8.0
     container_name: mysqlserver
     ports:
       - "3306:3306"
@@ -15,7 +14,6 @@ services:
     networks:
       - backend
   springboot-backend:
-    image: mad1011/query-exporter-app:backend
     build:
       context: springboot-backend
       dockerfile: Dockerfile
@@ -24,7 +22,7 @@ services:
       - "8081:8081"
     environment:
       SERVER_PORT: "8081"
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-service.default.svc.cluster.local:3306/employee:3306/employee
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqlserver:3306/employee
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: hadam1011
       OTEL_SERVICE_NAME: springboot-backend
@@ -38,7 +36,6 @@ services:
       - backend
       - frontend
   react-frontend:
-    image: mad1011/query-exporter-app:frontend
     build:
       context: react-frontend
       dockerfile: Dockerfile

@@ -6,8 +6,10 @@ import net.javaguides.springboot.model.Role;
 import net.javaguides.springboot.model.UserEntity;
 import net.javaguides.springboot.repository.RoleRepository;
 import net.javaguides.springboot.repository.UserRepository;
+import net.javaguides.springboot.security.JWTGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,11 @@ public class AdminController {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    public AdminController( PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/users")
     public List<UserEntity> getAllUser(){
@@ -53,6 +60,30 @@ public class AdminController {
         }
         user.setRoles(userRoles);
         return ResponseEntity.ok(userRepository.save(user));
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<UserEntity> registerAdmin(@RequestHeader("Authorization") String authorizationHeader, @RequestBody RegisterDto registerDto) {
+        if (userRepository.existsByUsername(registerDto.getUsername())) {
+            throw new IllegalArgumentException("Username has been registered!");
+        }
+        System.out.println("Register user: " + registerDto.getUsername());
+        UserEntity user = new UserEntity();
+        user.setUsername(registerDto.getUsername());
+        user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
+
+        List<String> roles = registerDto.getRoles();
+        List<Role> userRoles = new ArrayList<>();
+        for (String role : roles) {
+            System.out.println("role: " + role);
+            Role userRole = roleRepository.findByName(role).get();
+            userRoles.add(userRole);
+        }
+        user.setRoles(userRoles);
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/user/{id}")

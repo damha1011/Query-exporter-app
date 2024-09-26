@@ -1,38 +1,21 @@
 package net.javaguides.springboot.dto;
 
 public class DatabaseDTO {
-    public long id;
-    public String link;
-    public String serviceCode;
+    private long id;
+    private String link;
+    private String serviceCode;
+    private String label;
+    private String connectSQL;
+    private String autoCommit;
+    private String keepConnect;
 
-    public String label;
-
-    public String autoCommit;
-
-    public String keepConnect;
-
-    public DatabaseDTO(long id, String link, String serviceCode, String label, String autoCommit, String keepConnect) {
+    public DatabaseDTO(long id, String link, String serviceCode, String label, String connectSQL, String autoCommit, String keepConnect) {
         this.id = id;
         this.link = link;
         this.serviceCode = serviceCode;
         this.label = label;
+        this.connectSQL = connectSQL;
         this.autoCommit = autoCommit;
-        this.keepConnect = keepConnect;
-    }
-
-    public String getAutoCommit() {
-        return autoCommit;
-    }
-
-    public void setAutoCommit(String autoCommit) {
-        this.autoCommit = autoCommit;
-    }
-
-    public String getKeepConnect() {
-        return keepConnect;
-    }
-
-    public void setKeepConnect(String keepConnect) {
         this.keepConnect = keepConnect;
     }
 
@@ -66,5 +49,29 @@ public class DatabaseDTO {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getConnectSQL() {
+        return connectSQL;
+    }
+
+    public void setConnectSQL(String connectSQL) {
+        this.connectSQL = connectSQL;
+    }
+
+    public String getAutoCommit() {
+        return autoCommit;
+    }
+
+    public void setAutoCommit(String autoCommit) {
+        this.autoCommit = autoCommit;
+    }
+
+    public String getKeepConnect() {
+        return keepConnect;
+    }
+
+    public void setKeepConnect(String keepConnect) {
+        this.keepConnect = keepConnect;
     }
 }

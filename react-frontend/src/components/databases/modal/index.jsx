@@ -88,7 +88,7 @@ const DatabaseModal = (props) => { // databasesState, setDatabasesState
                     setDatabase({...res.data});
                     form.setFieldsValue({
                         link: res.data?.link,
-                        connectSql: res.data?.connectSql,
+                        connectSQL: res.data?.connectSQL,
                         serviceCode: res.data?.serviceCode,
                         keepConnect: res.data?.keepConnect,
                         autoCommit: res.data?.autoCommit
@@ -152,10 +152,10 @@ const DatabaseModal = (props) => { // databasesState, setDatabasesState
                     <Col span={12}>
                         <Form.Item 
                             label="Connect SQL:"
-                            name="conncetSql"
+                            name="connectSQL"
                             placeholder="Connect Sql"
                         >
-                            <Input value={database?.connectSql} disabled={!editable}/>
+                            <Input value={database?.connectSQL} disabled={!editable}/>
                         </Form.Item>
                     </Col>
                     <Col span={12}>

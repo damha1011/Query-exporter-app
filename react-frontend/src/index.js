@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './AuthContext';
-import {Router, Route, Redirect, Switch, Link} from 'react-router-dom'
 import { Resource } from '@opentelemetry/resources';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';

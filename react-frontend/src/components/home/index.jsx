@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import HomeService from '../../services/HomeService'
 import BulkImportForm from './BulkImportForm'
-import ColumnChart from './chart';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Space, Typography } from 'antd';
 import { headers } from '../../utils';
+import ListComponent from './listComponent';
 
 const HomeComponent = () => {
   const [state, setState] = useState({
@@ -51,9 +51,7 @@ const HomeComponent = () => {
 
   return (
     <div>
-      {state.data.length > 0 &&
-        <ColumnChart state={state} setState={setState}/>
-      }
+      <ListComponent state={state} setState={setState}/>
       <div>
         <Space size="small">
           <Button 

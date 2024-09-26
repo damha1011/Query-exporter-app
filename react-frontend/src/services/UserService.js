@@ -2,22 +2,22 @@ import axios from 'axios';
 import { headers } from '../utils';
 
 const apiBaseUrl = process.env.REACT_APP_ADMIN_API_BASE_URL;
-const apiAuthenticateUrl = process.env.REACT_APP_API_AUTHENTICATE_BASE_URL;
+const apiAdmin = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
-export const getUsers = async (token) =>{
+export const getUsers = async (token) => {
   return await axios.get(`${apiBaseUrl}/users`, {
     headers: headers(token)
   });
 }
 
-export const getUserById = async (userId, token) =>{
-  return await axios.get(`${apiBaseUrl}/user/${userId}`,{
+export const getUserById = async (userId, token) => {
+  return await axios.get(`${apiBaseUrl}/user/${userId}`, {
     headers: headers(token)
   });
 }
 
 export const registerUser = async (user, token) => {
-  const response = await axios.post(`${apiAuthenticateUrl}/register/admin`, user, {
+  const response = await axios.post(`${apiAdmin}/register`, user, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -30,13 +30,13 @@ export const registerUser = async (user, token) => {
 }
 
 export const updateUser = async (user, userId, token) => {
-  return await axios.put(`${apiBaseUrl}/user/${userId}`, user,{
+  return await axios.put(`${apiBaseUrl}/user/${userId}`, user, {
     headers: headers(token)
   });
 }
 
 export const deleteUser = async (userId, token) => {
-  return await axios.delete(`${apiBaseUrl}/user/${userId}`,{
+  return await axios.delete(`${apiBaseUrl}/user/${userId}`, {
     headers: headers(token)
   });
 }

@@ -22,7 +22,8 @@ const BulkImportForm = ({ state, setState }) => {
         message.success(`${info.file.name} file uploaded successfully.`);
         setState({...state, refresh: !state.refresh});
       } else if (status === 'error') {
-        openNotification(api, 'error', 'File upload failed', info.file?.response);
+        message.error(`${info.file.name} file upload failed.`);
+        openNotification(api, 'error', 'File upload failed', info.file?.response?.message);
       }
     },
     onDrop(e) {

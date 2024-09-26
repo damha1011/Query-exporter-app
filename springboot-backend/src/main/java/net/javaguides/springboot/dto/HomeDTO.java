@@ -1,50 +1,44 @@
 package net.javaguides.springboot.dto;
 
+import net.javaguides.springboot.model.Database;
+import net.javaguides.springboot.model.Metric;
+import net.javaguides.springboot.model.Queries;
+
 import java.math.BigInteger;
+import java.util.List;
 
 public class HomeDTO {
-    private String userName;
+    private List<Database> databases;
+    private List<Queries> queries;
+    private List<Metric> metrics;
 
-    private int databases;
-    private int metrics;
-    private int queries;
-
-    public HomeDTO(String userName, int databases, int metrics, int queries) {
-        this.userName = userName;
+    public HomeDTO(List<Database> databases, List<Queries> queries, List<Metric> metrics) {
         this.databases = databases;
-        this.metrics = metrics;
         this.queries = queries;
+        this.metrics = metrics;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getDatabases() {
+    public List<Database> getDatabases() {
         return databases;
     }
 
-    public void setDatabases(int databases) {
+    public void setDatabases(List<Database> databases) {
         this.databases = databases;
     }
 
-    public int getMetrics() {
-        return metrics;
-    }
-
-    public void setMetrics(int metrics) {
-        this.metrics = metrics;
-    }
-
-    public int getQueries() {
+    public List<Queries> getQueries() {
         return queries;
     }
 
-    public void setQueries(int queries) {
+    public void setQueries(List<Queries> queries) {
         this.queries = queries;
+    }
+
+    public List<Metric> getMetrics() {
+        return metrics;
+    }
+
+    public void setMetrics(List<Metric> metrics) {
+        this.metrics = metrics;
     }
 }
