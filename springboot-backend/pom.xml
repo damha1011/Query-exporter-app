@@ -92,8 +92,8 @@
 			<groupId>com.viettel.security</groupId>
 			<artifactId>viettelsecurity</artifactId>
 			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/viettelsecurity.jar</systemPath>
+			<!-- <scope>system</scope> -->
+			<!-- <systemPath>${project.basedir}/src/main/resources/viettelsecurity.jar</systemPath> -->
 		</dependency>
 	</dependencies>
 	<artifactId>springboot-backend</artifactId>
