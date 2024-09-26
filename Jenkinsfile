@@ -18,7 +18,7 @@ pipeline {
         stage('SonarCloud analysis') {
             steps {
                 withSonarQubeEnv(credentialsId: 'sonarcloud_token', installationName: 'SonarCloud') { // You can override the credential to be used
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
+                    bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
                 }
             }
         }
