@@ -16,6 +16,10 @@ pipeline {
         }
 
         stage('SonarCloud analysis') {
+            environment {
+                scannerHome = tool 'SonarQube_4.3.0'
+            }
+
             steps {
                 powershell 'Copy-Item -Path "springboot-backend/pom-analysis.xml" -Destination "springboot-backend/pom.xml" -Force'
 
@@ -25,12 +29,21 @@ pipeline {
                             bat 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=hadam1011_Query-exporter-app'
                         }
                     }
+                    dir ('./react-frontend') {
+                        bat '''
+                            ${scannerHome}/bin/sonar-scanner \
+                            -D sonar.projectKey=hadam1011_Query-exporter-app \
+                            -D sonar.projectName=Query-exporter-app \
+                            -D sonar.sources=./src \
+                        '''
+                    }
                 }
             }
         }
 
         stage ('Build images') {
             steps {
+                powershell 'Copy-Item -Path "springboot-backend/pom-build.xml" -Destination "springboot-backend/pom.xml" -Force'
                 dir ('./react-frontend') {
                     bat "docker build -t ${DOCKERHUB_REPO}:frontend-${BUILD_NUMBER} ."
                 }
