@@ -19,10 +19,10 @@ pipeline {
             steps {
                 powershell 'Copy-Item -Path "springboot-backend/pom-analysis.xml" -Destination "springboot-backend/pom.xml" -Force'
 
-                withSonarQubeEnv(credentialsId: 'sonarcloud_token', installationName: 'SonarCloud') { // You can override the credential to be used
+                withSonarQubeEnv(credentialsId: 'sonarcloud_token', installationName: 'SonarCloud') {
                     dir ('./springboot-backend') {
                         withMaven {
-                            bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
+                            bat 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=hadam1011_Query-exporter-app'
                         }
                     }
                 }
