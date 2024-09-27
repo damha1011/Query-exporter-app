@@ -17,7 +17,7 @@ pipeline {
 
         stage('SonarCloud analysis') {
             steps {
-                Copy-Item -Path "springboot-backend/pom-analysis.xml" -Destination "springboot-backend/pom.xml" -Force
+                Copy-Item -Path 'springboot-backend/pom-analysis.xml' -Destination 'springboot-backend/pom.xml' -Force
 
                 withSonarQubeEnv(credentialsId: 'sonarcloud_token', installationName: 'SonarCloud') { // You can override the credential to be used
                     dir ('./springboot-backend') {
