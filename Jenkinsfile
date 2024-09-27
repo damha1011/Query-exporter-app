@@ -31,7 +31,7 @@ pipeline {
                     }
                     dir ('./react-frontend') {
                         bat '''
-                            ${scannerHome}/bin/sonar-scanner \
+                            ${scannerHome}\\bin\\sonar-scanner \
                             -D sonar.projectKey=hadam1011_Query-exporter-app \
                             -D sonar.projectName=Query-exporter-app \
                             -D sonar.sources=./src \
